@@ -23,7 +23,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('front', include('front.urls')),
+    path('front/', include('front.urls')),
     path('', RedirectView.as_view(url='/front/', permanent=True)),
 ]
 
