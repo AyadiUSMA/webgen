@@ -21,12 +21,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-+s^y)26tnxjn_ix7z=4veuma5wm5o*ap^g66=!6eto!(9=d=m4'
+SECRET_KEY = os.environ.get('SECRET_KEY','django-insecure-+s^y)26tnxjn_ix7z=4veuma5wm5o*ap^g66=!6eto!(9=d=m4')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -79,10 +79,27 @@ WSGI_APPLICATION = 'webgen.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': str(os.environ.get("PGDATABASE",'railway')),
+        'USER': str(os.environ.get("PGUSER",'postgres')),
+        'PASSWORD': str(os.environ.get("PGPASSWORD",'HnrNCCOukH81uKOjQ6uN')),
+        'HOST': str(os.environ.get("PGHOST",'containers-us-west-157.railway.app')),
+        'PORT': os.environ.get("PGPORT",'6032'),
     }
 }
+
+
+
+
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 
 
 import dj_database_url
